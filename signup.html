@@ -1,0 +1,165 @@
+
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>User Signup</title>
+  <link rel="stylesheet" href="HL.css/signup.css">
+  <script>
+    function showFormBasedOnRole() {
+      const role = document.getElementById("role").value;
+
+      // Hide all forms
+      document.getElementById("provider-form").style.display = "none";
+      document.getElementById("nurse-form").style.display = "none";
+      document.getElementById("patient-form").style.display = "none";
+
+      // Show the form based on selected role
+      if (role === "PROVIDER") {
+        document.getElementById("provider-form").style.display = "block";
+      } else if (role === "NURSE") {
+        document.getElementById("nurse-form").style.display = "block";
+      } else if (role === "PATIENT") {
+        document.getElementById("patient-form").style.display = "block";
+      }
+    }
+  </script>
+</head>
+<body>
+  <div class="main-container"> 
+<div th:if="${message}" class="alert alert-success">
+  <span th:text="${message}"></span>
+</div>
+
+<header>
+  <nav>
+    <ul>
+      <li><a href="home.html">Home</a></li>
+      <li><a href="login.html">Login</a></li>
+      <li><a href="AboutUs.html">About Us</a></li>
+      <li><a href="#">Doctors</a></li>
+      <li><a href="#testimonials">Testimonials</a></li>
+      <li><a href="Contact.html">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<img width="280" src="images/1 (Small).png" alt="HealthLink Logo">
+<h1>User Signup</h1>
+
+<!-- Role Selection -->
+ 
+<label for="role">Role:</label>
+<select id="role" name="role" onchange="showFormBasedOnRole()" required>
+  <option value="">Select Role</option>
+  <option value="PROVIDER">Provider</option>
+  <option value="NURSE">Nurse</option>
+  <option value="PATIENT">Patient</option>
+</select><br><br>
+
+<!-- Provider Form -->
+
+ <form-section>
+<form id="provider-form" th:action="@{/providers/signup}" method="POST" enctype="multipart/form-data" style="display:none;">
+  <h2>Provider Signup</h2>
+  <label for="provider-name">Name:</label>
+  <input type="text" id="provider-name" name="name" placeholder="Enter Full Name" required><br>
+
+  <label for="provider-email">Email:</label>
+  <input type="email" id="provider-email" name="email" placeholder="Enter Email" required><br>
+
+  <label for="provider-password">Password:</label>
+  <input type="password" id="provider-password" name="password" placeholder="Enter Password" required><br>
+
+  <label for="P-confirm-password">Confirm Password:</label>
+  <input type="password" id="P-confirm-password" name="confirm-password" placeholder="Confirm Password" required><br>
+
+  <label for="provider-license">License Number:</label>
+  <input type="text" id="provider-license" name="license" placeholder="Enter License Number" required><br>
+
+  <label for="provider-specialization">Specialization:</label>
+  <input type="text" id="provider-specialization" name="specialization" placeholder="Enter Specialization"><br>
+
+  <label for="provider-photo">Upload Photo:</label>
+  <input type="file" id="provider-photo" name="photo" accept="image/*"><br>
+
+  <button type="submit">Sign Up as Provider</button>
+</form>
+
+<!-- Nurse Form -->
+<form id="nurse-form" th:action="@{/Signup/nurses}" method="POST" enctype="multipart/form-data" style="display:none;">
+  <h2>Nurse Signup</h2>
+  <label for="nurse-name">Name:</label>
+  <input type="text" id="nurse-name" name="name" placeholder="Enter Full Name" required><br>
+
+  <label for="nurse-email">Email:</label>
+  <input type="email" id="nurse-email" name="email" placeholder="Enter Email" required><br>
+
+  <label for="nurse-password">Password:</label>
+  <input type="password" id="nurse-password" name="password" placeholder="Enter Password" required><br>
+
+  <label for="N-confirm-password">Confirm Password:</label>
+  <input type="password" id="N-confirm-password" name="confirm-password" placeholder="Confirm Password" required><br>
+
+  <label for="employeeId">Employee ID:</label>
+  <input type="text" id="employeeId" name="employeeId" placeholder="Enter Employee ID" required><br>
+
+  <label for="department">Department:</label>
+  <input type="text" id="department" name="department" placeholder="Enter Department"><br>
+
+  <label for="nurse-photo">Upload Photo:</label>
+  <input type="file" id="nurse-photo" name="photo" accept="image/*"><br>
+
+  <button type="submit">Sign Up as Nurse</button>
+</form>
+
+<!-- Patient Form -->
+<form id="patient-form" action="http://localhost:3000/signup" method="POST" enctype="multipart/form-data" style="display:none;">
+  <h2>Patient Signup</h2>
+  <label for="patient-name">Name:</label>
+  <input type="text" id="patient-name" name="name" placeholder="Enter Full Name" required><br>
+
+  <label for="patient-email">Email:</label>
+  <input type="email" id="patient-email" name="email" placeholder="Enter Email" required><br>
+
+  <label for="patient-password">Password:</label>
+  <input type="password" id="patient-password" name="password" placeholder="Enter Password" required pattern=""><br>
+
+  <label for="confirm-password">Confirm Password:</label>
+  <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm Password" required><br>
+
+  <label for="patient-dob">Date of Birth:</label>
+  <input type="date" id="patient-dob" name="dob" required><br>
+
+  <label for="patient-gender">Gender:</label>
+  <select id="patient-gender" name="gender" required>
+    <option value="">Select</option>
+    <option value="Male">Male</option>
+    <option value="Female">Female</option>
+  </select><br>
+
+  <label for="patient-phone">Phone Number:</label>
+  <input type="tel" id="patient-phone" name="phone" placeholder="Enter Phone" required><br>
+
+  <label for="patient-address">Address:</label>
+  <input type="text" id="patient-address" name="address" placeholder="Enter Address" required><br>
+
+  <label for="patient-insurance">Insurance:</label>
+  <input type="text" id="patient-insurance" name="insurance" placeholder="Enter Insurance Details"><br>
+
+  <label for="patient-ssn">Social Security Number:</label>
+  <input type="text" id="patient-ssn" name="ssn" placeholder="Enter SSN"><br>
+
+  <label for="patient-photo">Upload Photo:</label>
+  <input type="file" id="patient-photo" name="photo" accept="image/*"><br>
+
+  <button type="submit">Sign Up as Patient</button>
+</form>
+</form-section>
+<footer>
+  <p>&copy; 2024 HealthLink. All Rights Reserved.</p>
+</footer>
+</div>
+</body>
+</html>
